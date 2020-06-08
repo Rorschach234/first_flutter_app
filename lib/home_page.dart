@@ -107,7 +107,7 @@ class _NumberTestState extends State<NumberTest> {
             child: Container(
               child: Center(
                 child: Text(
-                  'Press to show your number',
+                  'Calculate',
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.white),
                 ),
