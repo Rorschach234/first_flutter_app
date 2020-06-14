@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myfirstapp/home_page.dart';
+import 'package:myfirstapp/todoListPage.dart';
 import 'home_page.dart';
 
 void main() {
@@ -21,7 +22,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 class FrontPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -36,24 +36,35 @@ class FrontPage extends StatelessWidget {
                 image: AssetImage('images/surr-done.png'),
               ),
             ),
-            Button1(titleButton: 'Simple Calculator', onPress: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => HomePage(),
-                ),
-              );
-            },),
+            Button1(
+              titleButton: 'Simple Calculator',
+              onPress: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomePage(),
+                  ),
+                );
+              },
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Button1(
+              titleButton: 'Todo List App',
+              onPress: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => TodoList()));
+              },
+            )
           ],
         ),
-
       ),
     );
   }
 }
 
 class Button1 extends StatelessWidget {
-
   Button1({this.titleButton, this.onPress});
   final String titleButton;
   final Function onPress;
@@ -66,7 +77,8 @@ class Button1 extends StatelessWidget {
         child: Center(
           child: Text(
             titleButton,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
             textAlign: TextAlign.center,
           ),
         ),

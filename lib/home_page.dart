@@ -29,8 +29,10 @@ class _NumberTestState extends State<NumberTest> {
   final number2Controller = TextEditingController();
 
   double result = 0;
+  String operator = 'X';
 
- String mathSymbol = 'X';
+
+
 
 
   @override
@@ -58,17 +60,17 @@ class _NumberTestState extends State<NumberTest> {
           FlatButton(
             onPressed: (){
               setState(() {
-                if (mathSymbol == 'X'){
-                  mathSymbol = '+';
-                } else {
-                  mathSymbol = 'X';
+                if(operator == 'X'){
+                  operator = '+';
+                }else {
+                  operator = 'X';
                 }
               });
             },
             child: SizedBox(
               height: 60,
               child: Text(
-                mathSymbol, style: TextStyle(
+                operator, style: TextStyle(
                 fontSize: 50
               ),
               ),
@@ -96,7 +98,7 @@ class _NumberTestState extends State<NumberTest> {
 
                 FirstAppBrain multiple = FirstAppBrain(num1: double.parse(number1Controller.text), num2: double.parse(number2Controller.text));
 
-                if(mathSymbol == 'X') {
+                if(operator == 'X') {
                   result = multiple.multipleNumbers();
                 } else {
                   result = multiple.addingNumbers();

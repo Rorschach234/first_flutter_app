@@ -9,9 +9,6 @@ class FirstAppBrain {
   final double num1;
   final double num2;
 
-
-
-
   multipleNumbers(){
      return num1 * num2;
   }
