@@ -1,10 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:myfirstapp/new_list.dart';
 import 'const.dart';
+import 'new_list.dart';
 
 class TodoList extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,22 +17,20 @@ class TodoList extends StatelessWidget {
 }
 
 class TodoListBody extends StatefulWidget {
-
-
-
   @override
   _TodoListBodyState createState() => _TodoListBodyState();
 }
 
 class _TodoListBodyState extends State<TodoListBody> {
- static var dt = DateTime.now();
-  static var newFormat = DateFormat("yMMMEd");
-  String updatedDt = newFormat.format(dt);
+  final List<NewListAdd> _addList = [];
 
+  final customController = TextEditingController();
 
-List<Widget> listBox = [];
-
-
+  void _deleteList(String id) {
+    setState(() {
+      _addList.removeWhere((list) => list.id == id);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,70 +39,68 @@ List<Widget> listBox = [];
         Container(
           width: double.infinity,
           child: Text(
-           updatedDt,
+            DateFormat.yMMMd().format(DateTime.now()),
             textAlign: TextAlign.center,
             style: kDateStyle,
           ),
         ),
-        FlatButton(
+        TextField(
+          decoration: InputDecoration(hintText: 'Enter here'),
+          controller: customController,
+        ),
+        RaisedButton(
           child: Icon(Icons.add),
-          onPressed: (){
+          onPressed: () {
             setState(() {
-              listBox.add(NewList(onPress: () {
-                setState(() {
-                  listBox.removeAt(0);
-                });
-              },));
-              print(listBox.length);
+              if (customController.text.isEmpty) {
+                return;
+              }
+              _addList.add(
+                NewListAdd(
+                    id: DateTime.now().toString(),
+                    customList: customController.text),
+              );
+
+              customController.clear();
+
             });
           },
         ),
-        Flexible(
-          child: ListView.builder(
-            itemCount: listBox.length,
-              itemBuilder: (BuildContext context, int index){
-                return listBox[index];
-          }
-          ),
+        NewList(
+          addList: _addList,
+          deleteList: _deleteList,
         ),
       ],
     );
   }
 }
 
-
-
-
-
-
 class NewList extends StatelessWidget {
+  final List<NewListAdd> addList;
+  final Function deleteList;
 
-final Function onPress;
-
-NewList({this.onPress});
-
+  NewList({this.addList, this.deleteList});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 15),
-      color: Colors.redAccent,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: 'Enter here'
-              ),
+      height: 300,
+      child: ListView.builder(
+        itemBuilder: (context, index) {
+          return Card(
+            color: Colors.blueAccent,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Text(addList[index].customList),
+                FlatButton(
+                    child: Icon(Icons.delete),
+                    onPressed: () => deleteList(addList[index].id)),
+              ],
             ),
-          ),
-          FlatButton(
-            child: Icon(Icons.delete),
-            onPressed: onPress ,
-          ),
-        ],
+          );
+        },
+        itemCount: addList.length,
       ),
     );
   }
