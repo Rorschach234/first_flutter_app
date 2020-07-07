@@ -12,6 +12,7 @@ class TodoList extends StatelessWidget {
         title: Text('Todo List App'),
       ),
       body: TodoListBody(),
+      backgroundColor: Colors.blueGrey,
     );
   }
 }
@@ -22,6 +23,8 @@ class TodoListBody extends StatefulWidget {
 }
 
 class _TodoListBodyState extends State<TodoListBody> {
+
+ 
   final List<NewListAdd> _addList = [];
 
   final customController = TextEditingController();
@@ -47,6 +50,7 @@ class _TodoListBodyState extends State<TodoListBody> {
         TextField(
           decoration: InputDecoration(hintText: 'Enter here'),
           controller: customController,
+          autocorrect: false,
         ),
         RaisedButton(
           child: Icon(Icons.add),
@@ -88,15 +92,17 @@ class NewList extends StatelessWidget {
       child: ListView.builder(
         itemBuilder: (context, index) {
           return Card(
-            color: Colors.blueAccent,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Text(addList[index].customList),
-                FlatButton(
-                    child: Icon(Icons.delete),
-                    onPressed: () => deleteList(addList[index].id)),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.only(left: 50, right: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(addList[index].customList),
+                  FlatButton(
+                      child: Icon(Icons.delete),
+                      onPressed: () => deleteList(addList[index].id)),
+                ],
+              ),
             ),
           );
         },

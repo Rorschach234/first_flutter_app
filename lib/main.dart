@@ -23,6 +23,8 @@ class MyApp extends StatelessWidget {
 }
 
 class FrontPage extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -53,8 +55,12 @@ class FrontPage extends StatelessWidget {
             Button1(
               titleButton: 'Todo List App',
               onPress: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => TodoList()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TodoList(),
+                  ),
+                );
               },
             )
           ],

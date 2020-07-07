@@ -7,9 +7,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Welcome to my first App'),
-      ),
+
       body: NumberTest(),
     );
   }
@@ -30,6 +28,7 @@ class _NumberTestState extends State<NumberTest> {
 
   double result = 0;
   String operator = 'X';
+
 
 
 
@@ -57,25 +56,49 @@ class _NumberTestState extends State<NumberTest> {
               ),
             ),
           ),
-          FlatButton(
-            onPressed: (){
-              setState(() {
-                if(operator == 'X'){
-                  operator = '+';
-                }else {
-                  operator = 'X';
-                }
-              });
-            },
-            child: SizedBox(
-              height: 60,
-              child: Text(
-                operator, style: TextStyle(
-                fontSize: 50
-              ),
-              ),
+          Container(
+            child: DropdownButton<String>(
+              value: operator,
+              items: [
+                DropdownMenuItem(
+                  child: Text('X'),
+                  value: 'X',
+                ),
+                DropdownMenuItem(
+                  child: Text('+'),
+                  value: '+',
+                ),
+                DropdownMenuItem(
+                  child: Text('/'),
+                  value: '/',
+                ),
+              ],
+              onChanged: (value){
+                setState(() {
+                  operator = value;
+                });
+              },
             ),
           ),
+//          FlatButton(
+//            onPressed: (){
+//              setState(() {
+//                if(operator == 'X'){
+//                  operator = '+';
+//                }else {
+//                  operator = 'X';
+//                }
+//              });
+//            },
+//            child: SizedBox(
+//              height: 60,
+//              child: Text(
+//                operator, style: TextStyle(
+//                fontSize: 50
+//              ),
+//              ),
+//            ),
+//          ),
           Container(
             width: 200,
             child: TextField(
@@ -96,12 +119,14 @@ class _NumberTestState extends State<NumberTest> {
               setState(() {
 
 
-                FirstAppBrain multiple = FirstAppBrain(num1: double.parse(number1Controller.text), num2: double.parse(number2Controller.text));
+                FirstAppBrain firtsAppBrain = FirstAppBrain(num1: double.parse(number1Controller.text), num2: double.parse(number2Controller.text));
 
                 if(operator == 'X') {
-                  result = multiple.multipleNumbers();
-                } else {
-                  result = multiple.addingNumbers();
+                  result = firtsAppBrain.multipleNumbers();
+                } else if( operator == '+') {
+                  result = firtsAppBrain.addingNumbers();
+                } else{
+                  result = firtsAppBrain.devidedNumbers();
                 }
 
               });

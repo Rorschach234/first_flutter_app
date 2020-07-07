@@ -17,4 +17,8 @@ class FirstAppBrain {
     return num1 + num2;
   }
 
+  devidedNumbers(){
+    return num1 / num2;
+  }
+
 }
